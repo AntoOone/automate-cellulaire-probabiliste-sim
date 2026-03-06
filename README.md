@@ -3,8 +3,9 @@
 Dans cette application, l'objectif est de se concentrer sur les grandes simulations avec `N`, `d` et `k` suffisament grands pour ne pas pouvoir aisément énumérer exhaustivement les cas.
 Seul le cas périodique fait l'objet de ces simulations, le cas non périodique pourraît être implémenté sans difficulté.
 
-
 # Comment lancer la simulation
+
+La simulation fonctionne sur Windows, Linux et MacOS, avec ou sans OpenCL d'installé.
 
 ### Format des commandes :
 
@@ -23,19 +24,19 @@ cargo run --release --features opencl -- [FICHIER_DE_CONFIGURATION] [OPTIONS_AFF
 Pour une petite simulation 5x5 :
 
 ```bash
-cargo run --release -- simulation_step/config5x5.json display frequency 20 simulation_save/sim.json 5
+cargo run --release -- simulation_setup/config5x5.json display frequency 20 simulation_save/sim.json 5
 ```
 
 Pour une simulation à partir d'une image 300x300 :
 
 ```bash
-cargo run --release -- simulation_step/config300x300.png display frequency 60 simulation_save/sim.json 50
+cargo run --release -- simulation_setup/config300x300.png display frequency 60 simulation_save/sim.json 50
 ```
 
 Pour une simulation gourmande sans affichage sur une image 500x500 :
 
 ```bash
-cargo run --release -- simulation_step/config500x500.png hide inf simulation_save/sim.json 100
+cargo run --release -- simulation_setup/config500x500.png hide inf simulation_save/sim.json 100
 ```
 
 <details>
@@ -57,7 +58,7 @@ Ce fichier doit être soit au format json ou png.
 exemple :
 
 ```bash
-simulation_step/config5x5.json
+simulation_setup/config5x5.json
 ```
 
 ### format png
@@ -73,11 +74,31 @@ exemple d'un tel fichier :
 {
   "d": 2,
   "tab": [
-    0, 0, 1, 0, 0, 
-    1, 0, 1, 0, 0, 
-    2, 2, 0, 0, 0, 
-    2, 0, 1, 1, 0, 
-    0, 1, 1, 0, 1
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    2,
+    2,
+    0,
+    0,
+    0,
+    2,
+    0,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1
   ],
   "cell_to_color": [
     [255, 255, 255],
@@ -141,7 +162,7 @@ hide nb_iteration
 
 A la fin de la simulation, l'application va écrire dans un fichier de sauvegarde.
 
-La sauvegarde sera sous la forme d'un fichier json qui va stocke différents élémements importants de la simulation. 
+La sauvegarde sera sous la forme d'un fichier json qui va stocke différents élémements importants de la simulation.
 
 Les données sauvegardées sont : la variation de l'entropie, des fréquences des catégories, leur quantité ainsi que n, d et k.
 
@@ -163,30 +184,13 @@ simulation_save/sim.json 10
 </details>
 <br/>
 <details>
-<summary><b>Pour installer OpenCL</b></summary>
+<summary><b>OpenCL</b></summary>
 
-⚠️ L'installation a besoin des droits d'administrateur. Si vous ne l'avez pas déjà sur votre machine, on vous recommande d'utiliser la version cpu de la simulation qui est plus lente mais moins lourde.
-
-OpenCL communique dirrectement avec la carte graphique et ses drivers ce qui nécessite les droits administrateur de la machine.
-
-# Dépendances OpenCL
+# Dépendance OpenCL
 
 Ce projet utilise OpenCL via la crate rust `ocl`.
 
-## Ubuntu / Debian - Installation Automatique
-
-Executer le script bash `install_opencl.sh` en tant qu'administrateur.
-Ce script installe les librairies OpenCL sur votre ordinateur ainsi que ses dépendances.
-
-## Windows - Installation Manuelle
-
-<details>
-<summary>pour installer manuellement OpenCL.</summary>
-
-OpenCL est sûrement déjà installé sur votre machine mais il peut y avoir un problème de linking avec la librairie `OpenCL.lib`.
-La localisation de cette librairie varie selon votre carte graphique.
-Pour une carte Nvidia, elle se situe à l'adresse : `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v6.0\lib\x64`
-
-</details>
+Il est nécessaire d'avoir OpenCL installé sur sa machine pour pouvoir exécuter la simulation avec OpenCL.
+Si vous ne souhaitez pas l'utiliser et lancer la simulation sur votre CPU, il suffit de ne pas mettre `--features opencl` dans la commande d'exécution.
 
 </details>
