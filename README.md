@@ -1,6 +1,6 @@
-# Simulation à Grande échelle du modèle probabiliste de l'électeur
+# Simulation d'un automate cellulaire probabiliste
 
-Dans cette application, l'objectif est de se concentrer sur les grandes simulations avec `N`, `d` et `k` suffisament grands pour ne pas pouvoir aisément énumérer exhaustivement les cas.
+Dans cette application, l'objectif est de simuler un automate cellulaires probabiliste qui prend des paramètres suffisament grands pour qu'on ne puisse pas énumérer exhaustivement toutes les configurations possibles.
 Seul le cas périodique fait l'objet de ces simulations, le cas non périodique pourraît être implémenté sans difficulté.
 
 # Comment lancer la simulation
@@ -74,31 +74,11 @@ exemple d'un tel fichier :
 {
   "d": 2,
   "tab": [
-    0,
-    0,
-    1,
-    0,
-    0,
-    1,
-    0,
-    1,
-    0,
-    0,
-    2,
-    2,
-    0,
-    0,
-    0,
-    2,
-    0,
-    1,
-    1,
-    0,
-    0,
-    1,
-    1,
-    0,
-    1
+    0, 0, 1, 0, 0,
+    1, 0, 1, 0, 0,
+    2, 2, 0, 0, 0,
+    2, 0, 1, 1, 0,
+    0, 1, 1, 0, 1
   ],
   "cell_to_color": [
     [255, 255, 255],
@@ -186,7 +166,7 @@ simulation_save/sim.json 10
 <details>
 <summary><b>OpenCL</b></summary>
 
-# Dépendance OpenCL
+## Dépendance OpenCL
 
 Ce projet utilise OpenCL via la crate rust `ocl`.
 
